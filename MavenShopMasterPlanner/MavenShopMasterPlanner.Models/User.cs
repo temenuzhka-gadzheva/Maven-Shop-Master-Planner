@@ -1,5 +1,6 @@
 ﻿using MavenShopMasterPlanner.Models.Enums;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MavenShopMasterPlanner.Models
 {
@@ -13,13 +14,17 @@ namespace MavenShopMasterPlanner.Models
 
         [StringLength(30)]
         public required string LastName { get; set; }
-
         public int Age { get; set; }
         public Gender Gender { get; set; }
         public string? ProfileImageUrl { get; set; }
 
         [Phone(ErrorMessage = "Invalid phone number")]
         public required string PhoneNumber { get; set; }
+
+        [ForeignKey("CountryId")]
+        public int CountryId { get; set; }
+
+        public required virtual Country Country { get; set; }
 
         [EmailAddress]
         public required string Email { get; set; }
@@ -30,5 +35,6 @@ namespace MavenShopMasterPlanner.Models
         public required virtual ICollection<Recipe>? Recipes { get; set; }
         public required virtual ICollection<ShoppingList>? ShoppingLists { get; set; }
         public required virtual ICollection<ShoppingListItem>? ShoppingListItems { get; set; }
+        public required virtual ICollection<SharedShoppingList>? SharedShoppingLists { get; set; }
     }
 }
